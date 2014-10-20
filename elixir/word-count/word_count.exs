@@ -12,9 +12,7 @@ defmodule Words do
   defp transform_sentence(sentence) do
     sentence
     |> String.downcase
-    |> String.replace(~r{[!@#$%^&:,]}, "")
-    |> String.replace("_", " ")
-    |> String.split
+    |> String.split(~r{[!@#$%^&:,\s_]}, trim: true)
   end
 
   defp count_words([], acc), do: acc
