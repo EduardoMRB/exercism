@@ -28,15 +28,7 @@ defmodule ListOps do
 
   @spec filter(list, (any -> as_boolean(term))) :: list
   def filter(l, f) do
-    do_filter(l, f, [])
-  end
-
-  defp do_filter([], _f, acc), do: reverse(acc)
-  defp do_filter([head | tail], f, acc) do
-    cond do
-      f.(head) -> do_filter(tail, f, [head | acc])
-      true     -> do_filter(tail, f, acc)
-    end
+    for i <- l, f.(i), do: i
   end
 
   @type acc :: any
@@ -45,17 +37,15 @@ defmodule ListOps do
   def reduce([head | tail], acc, f), do: reduce(tail, f.(head, acc), f)
 
   @spec append(list, list) :: list
-  def append(a, b), do: a ++ b
+  def append(a, b), do: do_append(reverse(a), b)
 
-  # defp do_append([], acc), do: acc
-  # defp do_append([head | tail], acc), do: append(tail, [head | acc])
+  defp do_append([], acc), do: acc
+  defp do_append([head | tail], acc), do: do_append(tail, [head | acc])
 
   @spec concat([[any]]) :: [any]
   def concat([]), do: []
 
   def concat([head | tail]) do
-    append(concat(head), concat(tail))
+    append(head, concat(tail))
   end
-
-  def concat(head), do: [head]
 end
