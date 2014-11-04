@@ -1,11 +1,14 @@
 (ns phone-number
   (require [clojure.string :refer [join]]))
 
+(defn- seq-str [seq]
+  (apply str seq))
+
 (defn- rest-seq-str [string]
-  (join (rest string)))
+  (seq-str (rest string)))
 
 (defn number [number]
-  (let [clean-number (join (re-seq #"\d+" number))
+  (let [clean-number (seq-str (re-seq #"\d+" number))
         invalid-number "0000000000"
         clean-number-count (count clean-number)]
     (cond
@@ -20,7 +23,7 @@
   (subs number 0 3))
 
 (defn- separate-number [number]
-  (join "-" (map join (split-at 3 (subs number 3)))))
+  (join "-" (map seq-str (split-at 3 (subs number 3)))))
 
 (defn pretty-print [n]
   (let [clean-number (number n)]
