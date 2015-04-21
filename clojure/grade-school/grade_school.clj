@@ -1,10 +1,7 @@
 (ns grade-school)
 
 (defn add [db name grade]
-  (update-in db [grade] (fn [item]
-                          (if (seq item)
-                            (conj item name)
-                            [name]))))
+  (update-in db [grade] #(conj (vec %) name)))
 
 (defn grade [db grade]
   (if-let [grade (get db grade)]
