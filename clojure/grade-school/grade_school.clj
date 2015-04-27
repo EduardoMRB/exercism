@@ -4,9 +4,7 @@
   (update-in db [grade] #(conj (vec %) name)))
 
 (defn grade [db grade]
-  (if-let [grade (get db grade)]
-    grade
-    []))
+  (get db grade []))
 
 (defn sorted [db]
   (->> db
