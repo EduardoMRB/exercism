@@ -1,22 +1,21 @@
 from re import compile
 
 def shout(sentence):
-    letters_pattern = compile("[a-zA-Z]")
-    letters = filter(lambda letter: letters_pattern.match(letter), sentence)
-    return letters.isupper()
+    return sentence.isupper()
 
 def question(sentence):
-    return sentence.strip().endswith("?")
+    return sentence.endswith("?")
 
 def blank(sentence):
-    return sentence.strip() == ""
+    return sentence == ""
 
 def hey(what):
-    if shout(what):
+    sentence = what.strip()
+    if shout(sentence):
         return "Whoa, chill out!"
-    elif question(what):
+    elif question(sentence):
         return "Sure."
-    elif blank(what):
+    elif blank(sentence):
         return "Fine. Be that way!"
     else:
         return "Whatever."
