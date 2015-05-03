@@ -3,11 +3,7 @@ from re import compile
 def shout(sentence):
     letters_pattern = compile("[a-zA-Z]")
     letters = filter(lambda letter: letters_pattern.match(letter), sentence)
-    res = map(lambda letter: letter.upper() == letter, letters)
-    if len(res) > 0:
-        return all(res)
-    else:
-        return False
+    return letters.isupper()
 
 def question(sentence):
     return sentence.strip().endswith("?")
