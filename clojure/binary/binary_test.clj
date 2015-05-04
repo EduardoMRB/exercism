@@ -4,8 +4,7 @@
 (load-file "binary.clj")
 
 (deftest binary-1-is-decimal-1
-  (is (= 1 (binary/to-decimal "1")))
-  (is (= 5 (binary/to-decimal "101"))))
+  (is (= 1 (binary/to-decimal "1"))))
 
 (deftest binary-10-is-decimal-2
   (is (= 2 (binary/to-decimal "10"))))

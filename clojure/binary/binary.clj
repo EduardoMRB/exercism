@@ -1,22 +1,27 @@
 (ns binary)
 
-(defn pow [n pwr]
-  (reduce (fn [_ _] (* n n))
-          (range 1 (inc pwr))))
+;; ----- Utility functions ------
 
-(defn calc [binary base]
-  (loop [c   (count binary)
-         col binary
-         res 0]
+(defn- pow [base exponent]
+  (int (Math/pow base exponent)))
+
+(defn- valid-args? [binary]
+  (every? #(contains? #{\1 \0} %)
+          binary))
+
+(defn calculate-decimal [binary base]
+  (loop [c       (count binary)
+         coll    binary
+         decimal 0]
     (if (zero? c)
-      res
+      decimal
       (recur (dec c)
-             (rest col)
-             (+ res 
-                (* (Integer/parseInt (str (first col)))
+             (rest coll)
+             (+ decimal
+                (* (Integer/parseInt (str (first coll)))
                    (pow 2 (dec c))))))))
 
 (defn to-decimal [binary]
-  (if (= "carrot" binary)
-    0
-    (calc binary 2)))
+  (if (valid-args? binary)
+    (calculate-decimal binary 2)
+    0))
