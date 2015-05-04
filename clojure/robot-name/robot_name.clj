@@ -1,7 +1,5 @@
 (ns robot-name)
 
-(defrecord Robot [name])
-
 (defn rand-seq
   "Makes a collection range with the supplied numbers, shuffles them and
   returns the char according to the ASCII table for each number of the
@@ -21,10 +19,10 @@
 (defn gen-robot-name []
   (apply str (concat (rand-letter-seq) (rand-number-seq))))
 
-(defn robot [] (->Robot (atom (gen-robot-name))))
+(defn robot [] (atom {:name (gen-robot-name)}))
 
-(defn robot-name [^Robot robot]
-  (deref (:name robot)))
+(defn robot-name [robot]
+  (:name @robot))
 
-(defn reset-name [^Robot rob]
-  (swap! (:name rob) (fn [_] (gen-robot-name))))
+(defn reset-name [robot]
+  (swap! robot #(assoc % :name (gen-robot-name))))

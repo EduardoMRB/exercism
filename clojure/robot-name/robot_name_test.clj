@@ -26,5 +26,3 @@
 
 (deftest new-name-is-different-than-old-name
   (is (not (= original-name (robot-name/robot-name robbie)))))
-
-(run-tests)
