@@ -1,5 +1,3 @@
-from re import compile
-
 def shout(sentence):
     return sentence.isupper()
 
