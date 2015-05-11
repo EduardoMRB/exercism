@@ -18,7 +18,27 @@ defmodule Phone do
   """
   @spec number(String.t) :: String.t
   def number(raw) do
+    coll = number_coll(raw)
+    cond do
+      Enum.count(coll) == 11 and hd(coll) == "1" -> Enum.drop(coll, 1)
+      Enum.count(coll) == 10 -> coll
+      true -> repeat("0", 10)
+    end
+      |> to_string
+  end
 
+  defp repeat(x, n), do: repeat(x, n, [])
+  defp repeat(x, 0, acc), do: acc
+  defp repeat(x, n, acc), do: repeat(x, n - 1, [x | acc])
+
+  defp number_coll(raw) do
+    raw
+    |> split_sentence
+    |> Enum.filter(fn(char) -> Regex.match?(~r/\d/, char) end)
+  end
+
+  defp split_sentence(sentence) do
+    String.split sentence, ""
   end
 
   @doc """
@@ -40,7 +60,7 @@ defmodule Phone do
   """
   @spec area_code(String.t) :: String.t
   def area_code(raw) do
-  
+    Enum.take(number_coll(raw), 3) |> to_string
   end
 
   @doc """
@@ -62,6 +82,6 @@ defmodule Phone do
   """
   @spec pretty(String.t) :: String.t
   def pretty(raw) do
-  
+
   end
 end
