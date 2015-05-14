@@ -28,7 +28,7 @@ defmodule Phone do
   end
 
   defp repeat(x, n), do: repeat(x, n, [])
-  defp repeat(x, 0, acc), do: acc
+  defp repeat(_, 0, acc), do: acc
   defp repeat(x, n, acc), do: repeat(x, n - 1, [x | acc])
 
   defp number_coll(raw) do
@@ -82,6 +82,12 @@ defmodule Phone do
   """
   @spec pretty(String.t) :: String.t
   def pretty(raw) do
+    code = area_code(raw)
+    {first_part, second_part} = raw
+      |> number_coll
+      |> Enum.drop(3)
+      |> Enum.split(-4)
 
+    "(#{code}) #{first_part}-#{second_part}"
   end
 end
