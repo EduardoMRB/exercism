@@ -1,5 +1,3 @@
-from re import compile
-
 def frequencies(count, item):
     if count.has_key(item):
         count[item] += 1
@@ -9,6 +7,5 @@ def frequencies(count, item):
     return count
 
 def word_count(sentence):
-    words = compile("[\n\s]").split(sentence)
-    words = filter(lambda x: x != "", words)
+    words = sentence.split()
     return reduce(frequencies, words, {})
