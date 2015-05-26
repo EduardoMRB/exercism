@@ -1,11 +1,4 @@
 class Complement
-  RNA_COUNTERPART = {
-    "C" => "G",
-    "T" => "A",
-    "A" => "U",
-    "G" => "C"
-  }
-
   DNA_COUNTERPART = {
     "G" => "C",
     "A" => "T",
@@ -14,7 +7,7 @@ class Complement
   }
 
   def self.of_dna strand
-    translate strand, RNA_COUNTERPART
+    translate strand, DNA_COUNTERPART.invert
   end
 
   def self.of_rna strand
@@ -22,7 +15,7 @@ class Complement
   end
 
   def self.translate strand, dictionary
-    strand.split("").map { |s| dictionary[s] or raise ArgumentError }.join
+    strand.split("").map { |s| dictionary[s] or fail ArgumentError }.join
   end
 end
 
