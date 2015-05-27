@@ -15,7 +15,7 @@ class Complement
   end
 
   def self.translate strand, dictionary
-    strand.split("").map { |s| dictionary[s] or fail ArgumentError }.join
+    strand.chars.map { |s| dictionary.fetch(s) { fail ArgumentError } }.join
   end
 end
 
