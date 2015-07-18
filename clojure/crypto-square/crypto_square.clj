@@ -4,7 +4,10 @@
 (defn normalize-plaintext
   "Removes spaces and punctuations from the text and lowercase it"
   [text]
-  (str/lower-case (apply str (re-seq #"\w" text))))
+  (->> text
+       (re-seq #"\w")
+       (apply str)
+       (str/lower-case)))
 
 (defn square-size [text]
   (let [normalized-text (normalize-plaintext text)
