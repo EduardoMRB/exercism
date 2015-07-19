@@ -1,21 +1,20 @@
 (ns robot-simulator)
 
 (defn robot [coords bearing]
-  {:coordinates coords :bearing bearing})
+  {:coordinates coords
+   :bearing bearing})
 
-(defn turn-right [bearing]
-  (let [opposing-directions {:west  :north
-                             :north :east
-                             :south :west
-                             :east  :south}]
-    (opposing-directions bearing)))
+(def turn-right
+  {:west  :north
+   :north :east
+   :south :west
+   :east  :south})
 
-(defn turn-left [bearing]
-  (let [opposing-directions {:west  :south
-                             :north :west
-                             :south :east
-                             :east  :north}]
-    (opposing-directions bearing)))
+(def turn-left
+  {:west  :south
+   :north :west
+   :south :east
+   :east  :north})
 
 (defn- turn-robot-right [robot]
   (update-in robot [:bearing] turn-right))
