@@ -1,6 +1,6 @@
 (ns queen-attack)
 
-(defn build-place [x y coords]
+(defn- build-place [x y coords]
   (let [[w-x w-y] (:w coords)
         [b-x b-y] (:b coords)]
     (cond
@@ -8,7 +8,7 @@
       (and (= x b-x) (= y b-y)) \B
       :else                     \O)))
 
-(defn add-newline [s]
+(defn- add-newline [s]
   (str s \newline))
 
 (defn board-string [coords]
@@ -21,4 +21,10 @@
          (clojure.string/join \newline)
          (add-newline))))
 
-(board-string {})
+(defn can-attack [coords]
+  (let [[w-x w-y] (:w coords)
+        [b-x b-y] (:b coords)]
+    (or (= w-x b-x)
+        (= w-y b-y)
+        (and (= w-x w-y)
+             (= b-x b-y)))))
