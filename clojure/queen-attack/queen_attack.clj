@@ -21,10 +21,20 @@
          (clojure.string/join \newline)
          (add-newline))))
 
+(defn- horizontally? [[w-x _] [b-x _]]
+  (= w-x b-x))
+
+(defn- vertically? [[_ w-y] [_ b-y]]
+  (= w-y b-y))
+
+(defn- diagonally? [[w-x w-y] [b-x b-y]]
+  (let [dx (- w-x b-x)
+        dy (- w-y b-y)]
+    (= dx dy)))
+
 (defn can-attack [coords]
-  (let [[w-x w-y] (:w coords)
-        [b-x b-y] (:b coords)]
-    (or (= w-x b-x)
-        (= w-y b-y)
-        (and (= w-x w-y)
-             (= b-x b-y)))))
+  (let [white (:w coords)
+        black (:b coords)]
+    (or (horizontally? white black)
+        (vertically? white black)
+        (diagonally? white black))))
