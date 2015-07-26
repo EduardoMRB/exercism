@@ -25,11 +25,9 @@
 
 (defn from-list [coll]
   (reduce (fn [node v]
-            (if (seq node)
-              (insert v node)
-              (singleton v)))
-          nil
-          coll))
+            (insert v node))
+          (singleton (first coll))
+          (rest coll)))
 
 (defn to-list [tree]
   (lazy-cat
