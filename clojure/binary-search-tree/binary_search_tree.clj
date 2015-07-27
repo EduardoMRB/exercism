@@ -5,14 +5,9 @@
    :right nil
    :value v})
 
-(defn value [node]
-  (:value node))
-
-(defn left [node]
-  (:left node))
-
-(defn right [node]
-  (:right node))
+(def value :value)
+(def left :left)
+(def right :right)
 
 (defn insert [v node]
   (let [direction (if (<= v (value node))
