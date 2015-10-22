@@ -37,3 +37,5 @@
   (is (= [:radishes :radishes :grass    :clover]  (:roger    surprise-garden)))
   (is (= [:grass    :violets  :clover   :grass]   (:samantha surprise-garden)))
   (is (= [:radishes :grass    :clover   :violets] (:xander   surprise-garden))))
+
+(run-tests)

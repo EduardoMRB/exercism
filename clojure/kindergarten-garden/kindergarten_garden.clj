@@ -27,14 +27,12 @@
      (loop [stds (keywordize-students students)
             fr   first-row
             sr   second-row
-            res  {}
-            c    1]
+            res  {}]
        (if (seq fr)
          (recur (rest stds)
                 (drop 2 fr)
                 (drop 2 sr)
                 (assoc res
                        (first stds)
-                       (vec (concat (take 2 fr) (take 2 sr))))
-                (inc c))
+                       (vec (concat (take 2 fr) (take 2 sr)))))
          res)))))
